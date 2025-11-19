@@ -4,34 +4,39 @@
     "parameters": {
         "workflows_lga_securitycopilot_scu_scaler_name": {
             "defaultValue": "lga-securitycopilot-scu-scaler",
-            "type": "String"
-        },
-        "connections_mgid_lga_securitycopilot_scu_scaler_externalid": {
-            "defaultValue": "[resourceId('Microsoft.Web/connections', concat('mgid-', parameters('workflows_lga_securitycopilot_scu_scaler_name')))]",
-            "type": "String"
-        },
-        "connections_Arm_cfs_set_X_SCUs_externalid": {
-            "defaultValue": "[resourceId('Microsoft.Web/connections', 'Arm-cfs-set-X-SCUs')]",
-            "type": "String"
-        },
-        "connections_azureblob_externalid": {
-            "defaultValue": "[resourceId('Microsoft.Web/connections', 'azureblob')]",
-            "type": "String"
+            "type": "String", 
+            "metadata": {
+                "description": "Name of the Logic App (playbook)."
+            }
         },
         "location": { 
-            "type": "string", "defaultValue": "[resourceGroup().location]" 
+            "type": "string", 
+            "defaultValue": "[resourceGroup().location]" 
         },
         "managedApiLocation": { 
-            "type": "string", "defaultValue": "westeurope" 
+            "type": "string", 
+            "defaultValue": "westeurope" ,
+            "metadata": {
+                "description": "Region for Logic App managed connectors (e.g., westeurope)."
+            }
         },
-        "armConnectionNamePrimary": { 
-            "type": "string" 
+        "armConnectionNamePrimary": {
+            "type": "string",
+            "metadata": {
+                "description": "Name for the primary ARM API connection."
+            }
         },
-        "armConnectionNameSecondary": { 
-            "type": "string" 
+            "armConnectionNameSecondary": {
+            "type": "string",
+            "metadata": {
+                "description": "Name for the secondary ARM API connection."
+            }
         },
-        "azureBlobConnectionName": { 
-            "type": "string" 
+            "azureBlobConnectionName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name for the Azure Blob connector."
+            }
         },
         "storageDatasetName": { 
             "type": "string",
@@ -79,7 +84,11 @@
             }
         }
     },
-    "variables": {},
+    "variables": {
+        "armConnectionPrimaryId": "[resourceId('Microsoft.Web/connections', parameters('armConnectionNamePrimary'))]",
+        "armConnectionSecondaryId": "[resourceId('Microsoft.Web/connections', parameters('armConnectionNameSecondary'))]",
+        "azureBlobConnectionId": "[resourceId('Microsoft.Web/connections', parameters('azureBlobConnectionName'))]"
+    },
     "resources": [
         {
             "type": "Microsoft.Web/connections",
@@ -817,7 +826,7 @@
                         "value": {
                             "arm": {
                                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]",
-                                "connectionId": "[parameters('connections_mgid_lga_securitycopilot_scu_scaler_externalid')]",
+                                "connectionId": "[variables('armConnectionPrimaryId')]",
                                 "connectionName": "[concat('mgid-', parameters('workflows_lga_securitycopilot_scu_scaler_name'))]",
                                 "connectionProperties": {
                                     "authentication": {
@@ -827,7 +836,7 @@
                             },
                             "arm-1": {
                                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]",
-                                "connectionId": "[parameters('connections_Arm_cfs_set_X_SCUs_externalid')]",
+                                "connectionId": "[variables('armConnectionSecondaryId')]",
                                 "connectionName": "Arm-cfs-set-X-SCUs",
                                 "connectionProperties": {
                                     "authentication": {
@@ -837,9 +846,9 @@
                             },
                             "azureblob": {
                                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]",
-                                "connectionId": "[parameters('connections_azureblob_externalid')]",
+                                "connectionId": "[variables('azureBlobConnectionId')]",
                                 "connectionName": "[parameters('azureBlobConnectionName')]",
-                                "connectionProperties": {
+                                    "connectionProperties": {
                                     "authentication": {
                                         "type": "ManagedServiceIdentity"
                                     }

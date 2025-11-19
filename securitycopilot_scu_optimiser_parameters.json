@@ -5,15 +5,6 @@
     "workflows_lga_securitycopilot_scu_scaler_name": {
       "value": "lga-securitycopilot-scu-scaler"
     },
-    "connections_mgid_lga_securitycopilot_scu_scaler_externalid": {
-      "value": "[resourceId('Microsoft.Web/connections', concat('mgid-', parameters('workflows_lga_securitycopilot_scu_scaler_name')))]"
-    },
-    "connections_Arm_cfs_set_X_SCUs_externalid": {
-      "value": "[resourceId('Microsoft.Web/connections', 'Arm-cfs-set-X-SCUs')]"
-    },
-    "connections_azureblob_externalid": {
-      "value": "[resourceId('Microsoft.Web/connections', 'azureblob')]"
-    },
     "location": {
       "value": "[resourceGroup().location]"
     },
