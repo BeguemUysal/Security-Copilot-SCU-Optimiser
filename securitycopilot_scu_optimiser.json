@@ -994,7 +994,7 @@
                     },
                     "resources": [
                         {
-                            "name": "[variables('workbookId')]",
+                            "name": "[parameters('workbookId')]",
                             "type": "microsoft.insights/workbooks",
                             "apiVersion": "2022-04-01",
                             "location": "[parameters('resourceLocation')]",
