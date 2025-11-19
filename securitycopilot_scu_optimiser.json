@@ -191,58 +191,60 @@
         }
     },
     "variables": {
-        "armConnectionPrimaryId": "[resourceId('Microsoft.Web/connections', parameters('armConnectionNamePrimary'))]",
-        "armConnectionSecondaryId": "[resourceId('Microsoft.Web/connections', parameters('armConnectionNameSecondary'))]",
-        "azureBlobConnectionId": "[resourceId('Microsoft.Web/connections', parameters('azureBlobConnectionName'))]",
-        "logicAppName": "[parameters('playbookName')]"
+        "armConnectionNamePrimary": "Arm-cfs-set-X-SCUs",
+        "armConnectionNameSecondary": "mgid-lga-securitycopilot-scu-scaler",
+        "azureBlobConnectionName": "azureblob",
+        "logicAppName": "[parameters('playbookName')]",
+        "deploymentTimestamp": "[utcNow()]",
+        "workbookId": "[parameters('sentinelWorkbookId')]"
     },
     "resources": [
         {
             "type": "Microsoft.Web/connections",
             "apiVersion": "2017-07-01",
-            "name": "[parameters('armConnectionNamePrimary')]",
+            "name": "[variables('armConnectionNamePrimary')]",
             "location": "[parameters('location')]",
             "properties": {
-            "displayName": "[parameters('armConnectionNamePrimary')]",
+            "displayName": "[variables('armConnectionNamePrimary')]",
             "api": {
                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
             },
             "parameterValues": {},
             "nonSecretParameterValues": {},
             "customParameterValues": {},
-            "createdTime": "[utcNow()]"
+            "createdTime": "[variables('deploymentTimestamp')]"
             }
         },
         {
             "type": "Microsoft.Web/connections",
             "apiVersion": "2017-07-01",
-            "name": "[parameters('armConnectionNameSecondary')]",
+            "name": "[variables('armConnectionNameSecondary')]",
             "location": "[parameters('location')]",
             "properties": {
-            "displayName": "[parameters('armConnectionNameSecondary')]",
+            "displayName": "[variables('armConnectionNameSecondary')]",
             "api": {
                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
             },
             "parameterValues": {},
             "nonSecretParameterValues": {},
             "customParameterValues": {},
-            "createdTime": "[utcNow()]"
+            "createdTime": "[variables('deploymentTimestamp')]"
             }
         },
         {
             "type": "Microsoft.Web/connections",
             "apiVersion": "2017-07-01",
-            "name": "[parameters('azureBlobConnectionName')]",
+            "name": "[variables('azureBlobConnectionName')]",
             "location": "[parameters('location')]",
             "properties": {
-            "displayName": "[parameters('azureBlobConnectionName')]",
+            "displayName": "[variables('azureBlobConnectionName')]",
             "api": {
                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/azureblob')]"
             },
             "parameterValues": {},
             "nonSecretParameterValues": {},
             "customParameterValues": {},
-            "createdTime": "[utcNow()]"
+            "createdTime": "[variables('deploymentTimestamp')]"
             }
         },
         {
@@ -933,8 +935,8 @@
                         "value": {
                             "arm": {
                                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]",
-                                "connectionId": "[variables('armConnectionPrimaryId')]",
-                                "connectionName": "[concat('mgid-', variables('logicAppName'))]",
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('armConnectionNamePrimary'))]",
+                                "connectionName": "[variables('armConnectionNamePrimary')]",
                                 "connectionProperties": {
                                     "authentication": {
                                         "type": "ManagedServiceIdentity"
@@ -943,8 +945,8 @@
                             },
                             "arm-1": {
                                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]",
-                                "connectionId": "[variables('armConnectionSecondaryId')]",
-                                "connectionName": "Arm-cfs-set-X-SCUs",
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('armConnectionNameSecondary'))]",
+                                "connectionName": "[variables('armConnectionNameSecondary')]",
                                 "connectionProperties": {
                                     "authentication": {
                                         "type": "ManagedServiceIdentity"
@@ -953,8 +955,8 @@
                             },
                             "azureblob": {
                                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]",
-                                "connectionId": "[variables('azureBlobConnectionId')]",
-                                "connectionName": "[parameters('azureBlobConnectionName')]",
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('azureBlobConnectionName'))]",
+                                "connectionName": "[variables('azureBlobConnectionName')]",
                                     "connectionProperties": {
                                     "authentication": {
                                         "type": "ManagedServiceIdentity"
@@ -1014,7 +1016,7 @@
                     },
                     "resources": [
                         {
-                            "name": "[parameters('workbookId')]",
+                            "name": "[variables('workbookId')]",
                             "type": "microsoft.insights/workbooks",
                             "apiVersion": "2022-04-01",
                             "location": "[parameters('resourceLocation')]",
