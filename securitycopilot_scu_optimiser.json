@@ -977,7 +977,7 @@
                     },
                     "resources": [
                         {
-                            "name": "[parameters('sentinelWorkbookId)]",
+                            "name": "[parameters('sentinelWorkbookId')]",
                             "type": "microsoft.insights/workbooks",
                             "apiVersion": "2022-04-01",
                             "location": "[parameters('resourceLocation')]",
