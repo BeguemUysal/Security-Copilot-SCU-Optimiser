@@ -182,7 +182,7 @@
     "resources": [
         {
             "type": "Microsoft.Web/connections",
-            "apiVersion": "2017-07-01",
+            "apiVersion": "2016-06-01",
             "name": "[variables('armConnectionNamePrimary')]",
             "location": "[parameters('location')]",
             "properties": {
@@ -197,7 +197,7 @@
         },
         {
             "type": "Microsoft.Web/connections",
-            "apiVersion": "2017-07-01",
+            "apiVersion": "2016-06-01",
             "name": "[variables('armConnectionNameSecondary')]",
             "location": "[parameters('location')]",
             "properties": {
@@ -212,7 +212,7 @@
         },
         {
             "type": "Microsoft.Web/connections",
-            "apiVersion": "2017-07-01",
+            "apiVersion": "2016-06-01",
             "name": "[variables('azureBlobConnectionName')]",
             "location": "[parameters('location')]",
             "properties": {
@@ -227,7 +227,7 @@
         },
         {
             "type": "Microsoft.Logic/workflows",
-            "apiVersion": "2017-07-01",
+            "apiVersion": "2016-06-01",
             "name": "[variables('logicAppName')]",
             "location": "[parameters('location')]",
             "identity": {
@@ -956,21 +956,21 @@
             "properties": {
                 "mode": "Incremental",
                 "parameters": {
-                "workbookId": {
-                    "value": "[parameters('sentinelWorkbookId')]"
-                },
-                "workbookDisplayName": {
-                    "value": "[parameters('sentinelWorkbookDisplayName')]"
-                },
-                "resourceLocation": {
-                    "value": "[parameters('location')]"
-                },
-                "sentinelResourceGroup": {
-                    "value": "[parameters('sentinelResourceGroup')]"
-                },
-                "sentinelWorkspaceName": {
-                    "value": "[parameters('sentinelWorkspaceName')]"
-                }
+                    "workbookId": {
+                        "value": "[parameters('sentinelWorkbookId')]"
+                    },
+                    "workbookDisplayName": {
+                        "value": "[parameters('sentinelWorkbookDisplayName')]"
+                    },
+                    "resourceLocation": {
+                        "value": "[parameters('location')]"
+                    },
+                    "sentinelResourceGroup": {
+                        "value": "[parameters('sentinelResourceGroup')]"
+                    },
+                    "sentinelWorkspaceName": {
+                        "value": "[parameters('sentinelWorkspaceName')]"
+                    }
                 },
                 "template": {
                     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
