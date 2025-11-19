@@ -126,24 +126,6 @@
                 "description": "Region for Logic App managed connectors (e.g., westeurope)."
             }
         },
-        "armConnectionNamePrimary": {
-            "type": "string",
-            "metadata": {
-                "description": "Name for the primary ARM API connection."
-            }
-        },
-        "armConnectionNameSecondary": {
-            "type": "string",
-            "metadata": {
-                "description": "Name for the secondary ARM API connection."
-            }
-        },
-        "azureBlobConnectionName": {
-            "type": "string",
-            "metadata": {
-                "description": "Name for the Azure Blob connector."
-            }
-        },
         "storageDatasetName": { 
             "type": "string",
             "metadata": {
