@@ -190,6 +190,11 @@
             "api": {
                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
             },
+            "connectionProperties": {
+                "authentication": {
+                "type": "ManagedServiceIdentity"
+                }
+            },
             "parameterValues": {},
             "nonSecretParameterValues": {},
             "customParameterValues": {}
@@ -205,6 +210,11 @@
             "api": {
                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
             },
+            "connectionProperties": {
+                "authentication": {
+                "type": "ManagedServiceIdentity"
+                }
+            },
             "parameterValues": {},
             "nonSecretParameterValues": {},
             "customParameterValues": {}
@@ -219,6 +229,11 @@
             "displayName": "[variables('azureBlobConnectionName')]",
             "api": {
                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/azureblob')]"
+            },
+            "connectionProperties": {
+                "authentication": {
+                "type": "ManagedServiceIdentity"
+                }
             },
             "parameterValues": {},
             "nonSecretParameterValues": {},
@@ -955,46 +970,14 @@
             "subscriptionId": "[subscription().subscriptionId]",
             "properties": {
                 "mode": "Incremental",
-                "parameters": {
-                    "workbookId": {
-                        "value": "[parameters('sentinelWorkbookId')]"
-                    },
-                    "workbookDisplayName": {
-                        "value": "[parameters('sentinelWorkbookDisplayName')]"
-                    },
-                    "resourceLocation": {
-                        "value": "[parameters('location')]"
-                    },
-                    "sentinelResourceGroup": {
-                        "value": "[parameters('sentinelResourceGroup')]"
-                    },
-                    "sentinelWorkspaceName": {
-                        "value": "[parameters('sentinelWorkspaceName')]"
-                    }
-                },
                 "template": {
                     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
                     "parameters": {
-                        "workbookId": {
-                            "type": "string"
-                        },
-                        "workbookDisplayName": {
-                            "type": "string"
-                        },
-                        "resourceLocation": {
-                            "type": "string"
-                        },
-                        "sentinelResourceGroup": {
-                            "type": "string"
-                        },
-                        "sentinelWorkspaceName": {
-                            "type": "string"
-                        }
                     },
                     "resources": [
                         {
-                            "name": "[parameters('workbookId')]",
+                            "name": "[parameters('sentinelWorkbookId)]",
                             "type": "microsoft.insights/workbooks",
                             "apiVersion": "2022-04-01",
                             "location": "[parameters('resourceLocation')]",
