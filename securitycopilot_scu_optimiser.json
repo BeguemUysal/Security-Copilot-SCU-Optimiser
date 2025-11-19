@@ -181,6 +181,13 @@
             "metadata": {
                 "description": "GUID for the workbook resource name."
             }
+        },
+        "deployWorkbook": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": "Set to true to deploy the Sentinel workbook."
+            }
         }
     },
     "variables": {
