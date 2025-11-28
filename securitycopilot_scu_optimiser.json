@@ -932,7 +932,7 @@
                                 }
                             },
                             "azureblob": {
-                                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]",
+                                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/azureblob')]",
                                 "connectionId": "[resourceId('Microsoft.Web/connections', variables('azureBlobConnectionName'))]",
                                 "connectionName": "[variables('azureBlobConnectionName')]",
                                     "connectionProperties": {
@@ -964,7 +964,7 @@
                             "name": "[parameters('sentinelWorkbookId')]",
                             "type": "microsoft.insights/workbooks",
                             "apiVersion": "2022-04-01",
-                            "location": "[parameters('resourceLocation')]",
+                            "location": "[parameters('location')]",
                             "kind": "shared",
                             "properties": {
                                 "displayName": "[parameters('workbookDisplayName')]",
