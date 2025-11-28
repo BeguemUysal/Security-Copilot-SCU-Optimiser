@@ -182,7 +182,7 @@
     "resources": [
         {
             "type": "Microsoft.Web/connections",
-            "apiVersion": "2016-06-01",
+            "apiVersion": "2018-07-01-preview",
             "name": "[variables('armConnectionNamePrimary')]",
             "location": "[parameters('location')]",
             "properties": {
@@ -190,14 +190,10 @@
             "api": {
                 "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
             },
-            "connectionProperties": {
-                "authentication": {
-                "type": "ManagedServiceIdentity"
-                }
-            },
             "parameterValues": {},
             "nonSecretParameterValues": {},
-            "customParameterValues": {}
+            "customParameterValues": {},
+            "authType": "ManagedServiceIdentity"
             }
         },
         {
@@ -966,8 +962,7 @@
             "apiVersion": "2021-04-01",
             "name": "deployWorkbook",
             "condition": "[parameters('deployWorkbook')]",
-            "resourceGroup": "[parameters('sentinelResourceGroup')]",
-            "subscriptionId": "[subscription().subscriptionId]",
+            "scope": "[format('subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('sentinelResourceGroup'))]",
             "properties": {
                 "mode": "Incremental",
                 "template": {
