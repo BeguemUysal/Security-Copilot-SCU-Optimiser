@@ -196,10 +196,7 @@
                 "api": {
                     "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
                 },
-                "customParameterValues": {},
-                "parameterValues": {
-                    "authenticationType": "ManagedServiceIdentity"
-                }
+                "customParameterValues": {}
             }
         },
         {
@@ -212,10 +209,7 @@
                 "api": {
                     "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
                 },
-                "customParameterValues": {},
-                "parameterValues": {
-                    "authenticationType": "ManagedServiceIdentity"
-                }
+                "customParameterValues": {}
             }
         },
         {
@@ -228,11 +222,7 @@
                 "api": {
                     "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/azureblob')]"
                 },
-                "customParameterValues": {},
-                "parameterValues": {
-                    "authenticationType": "ManagedServiceIdentity",
-                    "accountName": "[parameters('storageAccountName')]"
-                }
+                "customParameterValues": {}
             }
         },
         {
@@ -921,36 +911,6 @@
                 "parameters": {
                     "$connections": {
                         "value": {
-                            "arm": {
-                                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]",
-                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('armConnectionNamePrimary'))]",
-                                "connectionName": "[variables('armConnectionNamePrimary')]",
-                                "connectionProperties": {
-                                    "authentication": {
-                                        "type": "ManagedServiceIdentity"
-                                    }
-                                }
-                            },
-                            "arm-1": {
-                                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]",
-                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('armConnectionNameSecondary'))]",
-                                "connectionName": "[variables('armConnectionNameSecondary')]",
-                                "connectionProperties": {
-                                    "authentication": {
-                                        "type": "ManagedServiceIdentity"
-                                    }
-                                }
-                            },
-                            "azureblob": {
-                                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/azureblob')]",
-                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('azureBlobConnectionName'))]",
-                                "connectionName": "[variables('azureBlobConnectionName')]",
-                                    "connectionProperties": {
-                                    "authentication": {
-                                        "type": "ManagedServiceIdentity"
-                                    }
-                                }
-                            }
                         }
                     }
                 }
@@ -961,7 +921,6 @@
             "apiVersion": "2021-04-01",
             "name": "deployWorkbook",
             "condition": "[parameters('deployWorkbook')]",
-            "scope": "[format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('sentinelResourceGroup'))]",
             "properties": {
                 "mode": "Incremental",
                 "template": {
