@@ -182,18 +182,17 @@
     "resources": [
         {
             "type": "Microsoft.Web/connections",
-            "apiVersion": "2018-07-01-preview",
+            "apiVersion": "2016-06-01",
             "name": "[variables('armConnectionNamePrimary')]",
             "location": "[parameters('location')]",
             "properties": {
-            "displayName": "[variables('armConnectionNamePrimary')]",
-            "api": {
-                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
-            },
-            "parameterValues": {},
-            "nonSecretParameterValues": {},
-            "customParameterValues": {},
-            "authType": "ManagedServiceIdentity"
+                "displayName": "[variables('armConnectionNamePrimary')]",
+                "api": {
+                    "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
+                },
+                "parameterValues": {},
+                "nonSecretParameterValues": {},
+                "customParameterValues": {}
             }
         },
         {
@@ -202,18 +201,13 @@
             "name": "[variables('armConnectionNameSecondary')]",
             "location": "[parameters('location')]",
             "properties": {
-            "displayName": "[variables('armConnectionNameSecondary')]",
-            "api": {
-                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
-            },
-            "connectionProperties": {
-                "authentication": {
-                "type": "ManagedServiceIdentity"
-                }
-            },
-            "parameterValues": {},
-            "nonSecretParameterValues": {},
-            "customParameterValues": {}
+                "displayName": "[variables('armConnectionNameSecondary')]",
+                "api": {
+                    "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
+                },
+                "parameterValues": {},
+                "nonSecretParameterValues": {},
+                "customParameterValues": {}
             }
         },
         {
@@ -223,17 +217,12 @@
             "location": "[parameters('location')]",
             "properties": {
             "displayName": "[variables('azureBlobConnectionName')]",
-            "api": {
-                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/azureblob')]"
-            },
-            "connectionProperties": {
-                "authentication": {
-                "type": "ManagedServiceIdentity"
-                }
-            },
-            "parameterValues": {},
-            "nonSecretParameterValues": {},
-            "customParameterValues": {}
+                "api": {
+                    "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/azureblob')]"
+                },
+                "parameterValues": {},
+                "nonSecretParameterValues": {},
+                "customParameterValues": {}
             }
         },
         {
