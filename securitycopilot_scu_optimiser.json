@@ -178,10 +178,11 @@
             }
         }
     },
-    "variables": {
-        "armConnectionNamePrimary": "Arm-cfs-set-X-SCUs",
-        "armConnectionNameSecondary": "mgid-lga-securitycopilot-scu-scaler",
-        "azureBlobConnectionName": "azureblob",
+    "variables": {   
+        "suffix": "[substring(uniqueString(parameters('playbookName'), resourceGroup().id), 0, 6)]",
+        "armConnectionNamePrimary": "[concat('Arm-', parameters('playbookName'), '-', variables('suffix'))]",
+        "armConnectionNameSecondary": "[concat('mgid-', parameters('playbookName'), '-', variables('suffix'))]",
+        "azureBlobConnectionName": "[concat('azureblob-', parameters('playbookName'), '-', variables('suffix'))]",
         "logicAppName": "[parameters('playbookName')]",
         "workbookId": "[parameters('sentinelWorkbookId')]"
     },
@@ -911,6 +912,21 @@
                 "parameters": {
                     "$connections": {
                         "value": {
+                            "arm": {
+                                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]",
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('armConnectionNamePrimary'))]",
+                                "connectionName": "[variables('armConnectionNamePrimary')]"
+                            },
+                            "arm-1": {
+                                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]",
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('armConnectionNameSecondary'))]",
+                                "connectionName": "[variables('armConnectionNameSecondary')]"
+                            },
+                            "azureblob": {
+                                "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/azureblob')]",
+                                "connectionId": "[resourceId('Microsoft.Web/connections', variables('azureBlobConnectionName'))]",
+                                "connectionName": "[variables('azureBlobConnectionName')]"
+                            }
                         }
                     }
                 }
