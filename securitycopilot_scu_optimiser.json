@@ -126,6 +126,12 @@
                 "description": "Region for Logic App managed connectors (e.g., westeurope)."
             }
         },
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the storage account."
+            }
+        },
         "storageDatasetName": { 
             "type": "string",
             "metadata": {
@@ -190,11 +196,10 @@
                 "api": {
                     "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
                 },
+                "customParameterValues": {},
                 "parameterValues": {
                     "authenticationType": "ManagedServiceIdentity"
-                },
-                "nonSecretParameterValues": {},
-                "customParameterValues": {}
+                }
             }
         },
         {
@@ -207,11 +212,10 @@
                 "api": {
                     "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
                 },
+                "customParameterValues": {},
                 "parameterValues": {
                     "authenticationType": "ManagedServiceIdentity"
-                },
-                "nonSecretParameterValues": {},
-                "customParameterValues": {}
+                }
             }
         },
         {
@@ -221,14 +225,14 @@
             "location": "[parameters('location')]",
             "properties": {
                 "displayName": "[variables('azureBlobConnectionName')]",
-                    "api": {
-                        "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/azureblob')]"
-                    },
-                    "parameterValues": {
-                        "authenticationType": "ManagedServiceIdentity"
-                    },
-                    "nonSecretParameterValues": {},
-                    "customParameterValues": {}
+                "api": {
+                    "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/azureblob')]"
+                },
+                "customParameterValues": {},
+                "parameterValues": {
+                    "authenticationType": "ManagedServiceIdentity",
+                    "accountName": "[parameters('storageAccountName')]"
+                }
             }
         },
         {
@@ -957,7 +961,7 @@
             "apiVersion": "2021-04-01",
             "name": "deployWorkbook",
             "condition": "[parameters('deployWorkbook')]",
-            "scope": "[format('subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('sentinelResourceGroup'))]",
+            "scope": "[format('/subscriptions/{0}/resourceGroups/{1}', subscription().subscriptionId, parameters('sentinelResourceGroup'))]",
             "properties": {
                 "mode": "Incremental",
                 "template": {
