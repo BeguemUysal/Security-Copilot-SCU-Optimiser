@@ -242,6 +242,15 @@
                         "$connections": {
                             "defaultValue": {},
                             "type": "Object"
+                        }, 
+                        "storageAccountName": {
+                            "type": "String"
+                        },
+                        "storageDatasetName": {
+                            "type": "String" 
+                        },
+                        "storageFilePath": {
+                            "type": "String" 
                         }
                     },
                     "triggers": {
@@ -944,6 +953,15 @@
                                 "connectionName": "[variables('azureBlobConnectionName')]"
                             }
                         }
+                    },
+                    "storageAccountName": {
+                        "value": "[parameters('storageAccountName')]"
+                    },
+                    "storageDatasetName": {
+                        "value": "[parameters('storageDatasetName')]"
+                    },
+                    "storageFilePath": {
+                        "value": "[parameters('storageFilePath')]"
                     }
                 }
             }
