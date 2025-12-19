@@ -195,7 +195,7 @@
                 "displayName": "[variables('armConnectionNamePrimary')]",
                 "api": {
                     "id": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Web/locations/', parameters('managedApiLocation'), '/managedApis/arm')]"
-                },
+                },      
                 "customParameterValues": {}
             }
         },
@@ -233,6 +233,11 @@
             "identity": {
                 "type": "SystemAssigned"
             },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/connections', variables('armConnectionNamePrimary'))]",
+                "[resourceId('Microsoft.Web/connections', variables('armConnectionNameSecondary'))]",
+                "[resourceId('Microsoft.Web/connections', variables('azureBlobConnectionName'))]"
+            ],
             "properties": {
                 "state": "Enabled",
                 "definition": {
@@ -971,6 +976,7 @@
             "apiVersion": "2021-04-01",
             "name": "deployWorkbook",
             "condition": "[parameters('deployWorkbook')]",
+            "resourceGroup": "[parameters('sentinelResourceGroup')]",
             "properties": {
                 "mode": "Incremental",
                 "template": {
