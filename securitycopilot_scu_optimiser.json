@@ -910,7 +910,7 @@
                                     "Content-Type": "application/json",
                                     "ReadFileMetadataFromServer": true
                                 },
-                                "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent(parameters('storageAccountName')))}files/@{encodeURIComponent(encodeURIComponent(base64(concat('/', parameters('storageDatasetName'), '/', parameters('storageFilePath')))))}"
+                                "path": "/v2/datasets/@{encodeURIComponent(encodeURIComponent(parameters('storageAccountName')))}/files/@{encodeURIComponent(encodeURIComponent(base64(concat('/', parameters('storageDatasetName'), '/', parameters('storageFilePath')))))}"
                             }
                         },
                         "Compose_JSON": {
